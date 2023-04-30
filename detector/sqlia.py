@@ -15,10 +15,9 @@ def sqlia_all_details(request, id:str):
     return HttpResponse(rows)
 
 def blocked_all_details(request, id:str):
-    reference_query = "select name, description from person where id= }"
-    instance_query = "select name, description from person where id=%s" % id
+    instance_query = "select name, description from person where id="
 
-    if sqlia_detector(reference_query, instance_query, id):
+    if sqlia_detector(instance_query, id):
         return HttpResponseForbidden()
     
     return sqlia_all_details(request, id)
