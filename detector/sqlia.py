@@ -30,6 +30,15 @@ def sqlia_details_from_other_table(request, id:str):
     rows = cursor.fetchall()
     return HttpResponse(rows)
 
+def blocked_details_from_other_table(request, id:str):
+    instance_query = "select name from person where id="
+
+    if sqlia_detector(instance_query, id):
+        return HttpResponseForbidden()
+
+    return sqlia_details_from_other_table(request, id)
+    
+
 def sqlia_city(request, id:str):
     cursor = connection.cursor()
     #  query excute
